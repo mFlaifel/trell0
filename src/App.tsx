@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Home } from './pages/Home';
 import './App.css';
-import { BoardPage } from './pages/BoardPage';
 import { NavBar } from './components/NavBar';
+import BoardPage from './pages/BoardPage';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <NavBar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/board/:boardName' element={<BoardPage />}></Route>
+        <Route path='/board/:boardIndex' element={<BoardPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

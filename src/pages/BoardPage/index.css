@@ -1,0 +1,32 @@
+.board-page-container {
+  height: calc(100vh - 2rem);
+  background-color: #0079c0;
+  padding-top: 2rem;
+}
+
+.lists-container {
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ebecf0;
+  min-width: 270px;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.card-item {
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}

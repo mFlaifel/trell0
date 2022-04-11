@@ -7,6 +7,6 @@ export type Item = {
   label?: Label[];
 };
 
-export type List = { name: string; items: Item[] };
+export type List = { name: string; id: string; items: Item[] };
 
 export type Board = { name: string; lists: List[] };

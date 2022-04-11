@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CustomModal } from '../../components/CustomModal';
 import { store } from '../../store';
+import Input from 'antd/es/input';
 import './index.css';
+import { observer } from 'mobx-react';
 
-export const Home = () => {
+const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [boardName, setBoardName] = useState('');
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -13,13 +16,12 @@ export const Home = () => {
   return (
     <div className='home-container'>
       <h1 className='home-workspace'>Your Workspaces</h1>
-      {console.log('store', store.boards)}
       <div className='home-board-container'>
         {store.boards.map((board, index) => {
           return (
             <Link
               key={index}
-              to={'/board/' + board.name}
+              to={'/board/' + index}
               className='home-board-card'
             >
               <p className='home-board-text'>{board.name}</p>
@@ -32,10 +34,28 @@ export const Home = () => {
         <CustomModal
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
-          handleOk={() => {}}
+          handleOk={() => {
+            if (boardName !== '') {
+              setIsModalVisible(false);
+              store.addBoard(boardName);
+              setBoardName('');
+            }
+          }}
           title='Create new board'
-        />
+        >
+          <div>
+            <Input
+              addonBefore='Board name'
+              type='text'
+              value={boardName}
+              placeholder="Type board's name"
+              onChange={(e) => setBoardName(e.target.value)}
+            />
+          </div>
+        </CustomModal>
       </div>
     </div>
   );
 };
+
+export default observer(Home);

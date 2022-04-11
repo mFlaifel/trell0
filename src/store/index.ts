@@ -1,11 +1,6 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import { Board } from '../interfaces';
 const { v4: uuidv4 } = require('uuid');
-uuidv4();
-
-const addBoard = (boards: Board[], BoardName: string) => {
-  return [...boards, { name: BoardName, lists: [] }];
-};
 
 class Store {
   boards: Board[] = [
@@ -14,6 +9,7 @@ class Store {
       lists: [
         {
           name: 'Basics',
+          id: uuidv4(),
           items: [
             {
               id: uuidv4(),
@@ -34,6 +30,7 @@ class Store {
         },
         {
           name: 'intermediate',
+          id: uuidv4(),
           items: [
             {
               id: uuidv4(),
@@ -59,6 +56,7 @@ class Store {
       lists: [
         {
           name: 'Basics',
+          id: uuidv4(),
           items: [
             {
               id: uuidv4(),
@@ -79,6 +77,7 @@ class Store {
         },
         {
           name: 'intermediate',
+          id: uuidv4(),
           items: [
             {
               id: uuidv4(),
@@ -101,22 +100,31 @@ class Store {
     },
   ];
 
-  newBoard: string = '';
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      boards: observable,
+      addBoard: action,
+      addList: action,
+      addCard: action,
+    });
   }
 
-  addBoard() {
-    this.boards = addBoard(this.boards, this.newBoard);
-    this.newBoard = '';
+  addBoard(name: string) {
+    this.boards.push({ name: name, lists: [] });
   }
-  // addTodo = () => {
-  //   this.boards.push({
-  //     title: this.newTodo,
-  //     todos: [{ id: uuidv4() }],
-  //   });
-  //   this.newTodo = '';
-  // };
+
+  addList(boardIndex: number, name: string) {
+    this.boards[boardIndex].lists.push({ name: name, id: uuidv4(), items: [] });
+  }
+
+  addCard(boardIndex: number, listIndex: number, description: string) {
+    this.boards[boardIndex].lists[listIndex].items.push({
+      id: uuidv4(),
+      description,
+      completed: false,
+      label: [],
+    });
+  }
 }
 
 export const store = new Store();
