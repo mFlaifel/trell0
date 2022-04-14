@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { Board } from '../interfaces';
 const { v4: uuidv4 } = require('uuid');
 
@@ -6,6 +6,7 @@ class Store {
   boards: Board[] = [
     {
       name: 'Welcome Board',
+      id: uuidv4(),
       lists: [
         {
           name: 'Basics',
@@ -53,6 +54,7 @@ class Store {
     },
     {
       name: 'Welcome Board2',
+      id: uuidv4(),
       lists: [
         {
           name: 'Basics',
@@ -101,16 +103,11 @@ class Store {
   ];
 
   constructor() {
-    makeObservable(this, {
-      boards: observable,
-      addBoard: action,
-      addList: action,
-      addCard: action,
-    });
+    makeAutoObservable(this);
   }
 
   addBoard(name: string) {
-    this.boards.push({ name: name, lists: [] });
+    this.boards.push({ name: name, id: uuidv4(), lists: [] });
   }
 
   addList(boardIndex: number, name: string) {
@@ -124,6 +121,14 @@ class Store {
       completed: false,
       label: [],
     });
+  }
+
+  moveBoard(sourceIndex: number, destinationIndex: number) {
+    if (sourceIndex === destinationIndex) return;
+    const tempBoards = [...this.boards];
+    const [itemToMove] = tempBoards.splice(sourceIndex, 1);
+    tempBoards.splice(destinationIndex, 0, itemToMove);
+    this.boards = tempBoards;
   }
 }
 

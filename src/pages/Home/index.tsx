@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { CustomModal } from '../../components/CustomModal';
 import { store } from '../../store';
 import Input from 'antd/es/input';
 import './index.css';
 import { observer } from 'mobx-react';
+import { Board } from '../../components/Board';
 
 const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -13,19 +13,14 @@ const Home = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
+
   return (
     <div className='home-container'>
       <h1 className='home-workspace'>Your Workspaces</h1>
       <div className='home-board-container'>
         {store.boards.map((board, index) => {
           return (
-            <Link
-              key={index}
-              to={'/board/' + index}
-              className='home-board-card'
-            >
-              <p className='home-board-text'>{board.name}</p>
-            </Link>
+            <Board index={index} name={board.name} key={index} id={board.id} />
           );
         })}
         <div className='home-board-card home-create-board' onClick={showModal}>

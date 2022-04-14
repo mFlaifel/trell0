@@ -9,4 +9,4 @@ export type Item = {
 
 export type List = { name: string; id: string; items: Item[] };
 
-export type Board = { name: string; lists: List[] };
+export type Board = { name: string; id: string; lists: List[] };

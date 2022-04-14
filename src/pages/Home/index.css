@@ -39,10 +39,6 @@
   align-items: center;
 }
 
-.home-board-text {
-  margin-bottom: 0;
-}
-
 .home-create-board {
   background-color: rgba(9, 30, 66, 0.05);
   color: black;
