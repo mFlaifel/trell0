@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import { FC, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ interface Props {
   id: string;
 }
 
-export const Board: FC<Props> = ({ index, name, id }) => {
+const Board: FC<Props> = ({ index, name, id }) => {
   const ref = useRef(null);
 
   const [{ handlerId }, drop] = useDrop({
@@ -91,3 +92,5 @@ export const Board: FC<Props> = ({ index, name, id }) => {
     </Link>
   );
 };
+
+export default observer(Board);

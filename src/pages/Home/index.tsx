@@ -4,7 +4,7 @@ import { store } from '../../store';
 import Input from 'antd/es/input';
 import './index.css';
 import { observer } from 'mobx-react';
-import { Board } from '../../components/Board';
+import Board from '../../components/Board';
 
 const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);

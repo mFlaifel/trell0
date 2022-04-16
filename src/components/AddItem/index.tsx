@@ -5,10 +5,10 @@ import './index.css';
 
 interface Props {
   text: string;
-  onEdit: any;
+  onAdd: any;
 }
 
-export const AddItem: React.FC<Props> = ({ text, onEdit }) => {
+export const AddItem: React.FC<Props> = ({ text, onAdd }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState('');
 
@@ -24,7 +24,7 @@ export const AddItem: React.FC<Props> = ({ text, onEdit }) => {
 
   const handleAddList = (e: { stopPropagation: () => void }) => {
     handleCancel(e);
-    onEdit(value);
+    onAdd(value);
   };
 
   return (
