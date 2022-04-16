@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { CustomModal } from '../../components/CustomModal';
+import CustomModal from '../../components/CustomModal';
 import { store } from '../../store';
 import Input from 'antd/es/input';
 import './index.css';
 import { observer } from 'mobx-react';
 import Board from '../../components/Board';
+import { withTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -13,10 +15,9 @@ const Home = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
   return (
     <div className='home-container'>
-      <h1 className='home-workspace'>Your Workspaces</h1>
+      <h1 className='home-workspace'>{t('Your workspace')}</h1>
       <div className='home-board-container'>
         {store.boards.map((board, index) => {
           return (
@@ -24,7 +25,7 @@ const Home = () => {
           );
         })}
         <div className='home-board-card home-create-board' onClick={showModal}>
-          <p className='home-board-text'>Create new board</p>
+          <p className='home-board-text'>{t('Create new board')}</p>
         </div>
         <CustomModal
           isModalVisible={isModalVisible}
@@ -36,14 +37,14 @@ const Home = () => {
               setBoardName('');
             }
           }}
-          title='Create new board'
+          title={t('Create new board')}
         >
           <div>
             <Input
-              addonBefore='Board name'
+              addonBefore={t('Board name')}
               type='text'
               value={boardName}
-              placeholder="Type board's name"
+              placeholder={t("Type board's name")}
               onChange={(e) => setBoardName(e.target.value)}
             />
           </div>
@@ -53,4 +54,4 @@ const Home = () => {
   );
 };
 
-export default observer(Home);
+export default withTranslation()(observer(Home));

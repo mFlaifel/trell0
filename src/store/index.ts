@@ -212,7 +212,6 @@ class Store {
     tempItems.splice(index, 1);
     tempItems.splice(destinationIndex, 0, item);
     this.boards[boardIndex].lists[listIndex].items = tempItems;
-    console.log(toJS(this.boards[boardIndex].lists[listIndex].items));
   }
 
   moveItemToList(
@@ -227,8 +226,6 @@ class Store {
       this.boards[boardIndex].lists[sourceListIndex].items
     );
     if (index === -1) return;
-    console.log({ item, index });
-    console.log({ destinationIndex });
     const sourceTempItems = [
       ...this.boards[boardIndex].lists[sourceListIndex].items,
     ];

@@ -5,10 +5,25 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav-bar-title {
   font-size: 1rem;
   margin-left: 1rem;
   margin-bottom: 0;
+}
+
+.nav-bar-lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-right: 1rem;
+}
+
+.nav-bar-lang p {
+  margin-bottom: 0;
+  cursor: pointer;
 }
