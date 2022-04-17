@@ -1,0 +1,15 @@
+.board-page-container {
+  height: calc(100vh - 2rem);
+  background-color: #0079c0;
+  padding-top: 2rem;
+}
+
+.lists-container {
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 2rem;
+}
