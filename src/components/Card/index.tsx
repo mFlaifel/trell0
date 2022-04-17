@@ -40,11 +40,6 @@ const CardComponent: FC<Props> = ({ item, index, boardIndex, listIndex }) => {
       const draggedId = draggedItem.id;
       if (draggedId !== item.id) {
         const sourceListIndexDnd = draggedItem.sourceListIndexDnd;
-        // console.log({
-        //   listIndex,
-        //   sourceListIndexDnd: draggedItem.sourceListIndexDnd,
-        // });
-
         if (sourceListIndexDnd === listIndex) {
           store.moveItem(boardIndex, listIndex, draggedId, originalIndex);
         } else {

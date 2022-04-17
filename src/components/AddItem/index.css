@@ -1,0 +1,26 @@
+.add-item-container {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.add-item-text {
+  margin-bottom: 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.add-item-text-list {
+  color: white;
+  background-color: #52a4d4;
+}
+
+.add-item-input {
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.add-item-button-group {
+  display: flex;
+  justify-content: space-between;
+}

@@ -3,9 +3,11 @@ const { v4: uuidv4 } = require('uuid');
 export const initialState = [
   {
     name: 'Welcome Board',
+    id: uuidv4(),
     lists: [
       {
         name: 'Basics',
+        id: uuidv4(),
         items: [
           {
             id: uuidv4(),
@@ -22,10 +24,26 @@ export const initialState = [
               { name: 'card', color: 'green' },
             ],
           },
+          {
+            id: uuidv4(),
+            description: 'card 3 !',
+            completed: false,
+            label: [{ name: 'welcome', color: 'blue' }],
+          },
+          {
+            id: uuidv4(),
+            description: 'card 4 !',
+            completed: false,
+            label: [
+              { name: 'welcome', color: 'blue' },
+              { name: 'card', color: 'green' },
+            ],
+          },
         ],
       },
       {
         name: 'intermediate',
+        id: uuidv4(),
         items: [
           {
             id: uuidv4(),
@@ -47,83 +65,56 @@ export const initialState = [
     ],
   },
   {
-    name: 'Work Board',
+    name: 'Welcome Board2',
+    id: uuidv4(),
     lists: [
       {
-        name: 'todo',
+        name: 'Basics',
+        id: uuidv4(),
         items: [
           {
             id: uuidv4(),
-            description: 'Create figma mockup',
+            description: 'Welcome to Trello!',
             completed: false,
-            label: [{ name: 'ui', color: 'green' }],
+            label: [{ name: 'welcome', color: 'blue' }],
           },
           {
             id: uuidv4(),
-            description: 'create page 1',
+            description: 'This is a card!',
             completed: false,
             label: [
-              { name: 'frontEnd', color: 'blue' },
-              { name: 'card', color: 'green' },
-            ],
-          },
-          {
-            id: uuidv4(),
-            description: 'create page 2',
-            completed: false,
-            label: [
-              { name: 'frontEnd', color: 'blue' },
+              { name: 'welcome', color: 'blue' },
               { name: 'card', color: 'green' },
             ],
           },
         ],
       },
       {
-        name: 'doing',
+        name: 'intermediate',
+        id: uuidv4(),
         items: [
           {
             id: uuidv4(),
-            description: 'create custom component 4',
+            description: 'Welcome to Trello!',
             completed: false,
             label: [{ name: 'welcome', color: 'blue' }],
           },
           {
             id: uuidv4(),
-            description: 'create custom component 5',
+            description: 'This is a card!',
             completed: false,
-            label: [{ name: 'welcome', color: 'blue' }],
-          },
-          {
-            id: uuidv4(),
-            description: 'create custom component 6',
-            completed: false,
-            label: [{ name: 'welcome', color: 'blue' }],
-          },
-        ],
-      },
-      {
-        name: 'done',
-        items: [
-          {
-            id: uuidv4(),
-            description: 'configure cra',
-            completed: false,
-            label: [{ name: 'welcome', color: 'blue' }],
-          },
-          {
-            id: uuidv4(),
-            description: 'create custom component 1',
-            completed: false,
-            label: [{ name: 'welcome', color: 'blue' }],
-          },
-          {
-            id: uuidv4(),
-            description: 'create custom component 2',
-            completed: false,
-            label: [{ name: 'welcome', color: 'blue' }],
+            label: [
+              { name: 'welcome', color: 'blue' },
+              { name: 'card', color: 'green' },
+            ],
           },
         ],
       },
     ],
+  },
+  {
+    name: 'Welcome Board3',
+    id: uuidv4(),
+    lists: [],
   },
 ];

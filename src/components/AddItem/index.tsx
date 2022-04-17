@@ -8,9 +8,10 @@ import './index.css';
 interface Props {
   text: string;
   onAdd: any;
+  type?: 'List' | 'Card' | 'Other';
 }
 
-const AddItem: React.FC<Props> = ({ text, onAdd }) => {
+const AddItem: React.FC<Props> = ({ text, onAdd, type }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState('');
 
@@ -30,25 +31,34 @@ const AddItem: React.FC<Props> = ({ text, onAdd }) => {
   };
 
   return (
-    <div onClick={changeEditMode}>
+    <div onClick={changeEditMode} className='add-item-container'>
       {isEdit ? (
         <div>
           <Input
-            placeholder='Enter list name'
+            placeholder={t('Type here')}
             value={value}
             onChange={(e: { target: { value: SetStateAction<string> } }) =>
               setValue(e.target.value)
             }
+            className='add-item-input'
           />
-          <Button type='primary' onClick={handleAddList}>
-            {t('Add List')}
-          </Button>
-          <Button type='primary' onClick={handleCancel}>
-            {t('Cancel')}
-          </Button>
+          <div className='add-item-button-group'>
+            <Button type='primary' onClick={handleAddList}>
+              {t('Add List')}
+            </Button>
+            <Button type='primary' onClick={handleCancel}>
+              {t('Cancel')}
+            </Button>
+          </div>
         </div>
       ) : (
-        <p>{t(text)}</p>
+        <p
+          className={`add-item-text ${
+            type === 'List' ? 'add-item-text-list' : ''
+          }`}
+        >
+          {t(text)}
+        </p>
       )}
     </div>
   );

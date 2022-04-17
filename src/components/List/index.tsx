@@ -76,6 +76,7 @@ const ListComponent: FC<Props> = ({ item, boardIndex, listIndex }) => {
         onAdd={(value: string) => {
           store.addCard(boardIndex, listIndex, value);
         }}
+        type='Card'
       />
     </div>
   );

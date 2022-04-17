@@ -16,6 +16,7 @@ const resources = {
       ' + add List': ' + add List',
       ' + add Card': ' + add Card',
       'Add List': 'Add List',
+      'Type here': 'Type here',
     },
   },
   fr: {
@@ -29,6 +30,7 @@ const resources = {
       ' + add List': ' + ajouter une liste',
       ' + add Card': ' + ajouter une carte',
       'Add List': 'Ajouter la liste',
+      'Type here': 'Écrivez ici',
     },
   },
 };

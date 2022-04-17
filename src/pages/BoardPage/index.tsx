@@ -31,9 +31,11 @@ const BoardPage = () => {
           onAdd={(value: string) => {
             store.addList(boardIndex, value);
           }}
+          type='List'
         />
       </div>
     </div>
   );
 };
+
 export default withTranslation()(observer(BoardPage));

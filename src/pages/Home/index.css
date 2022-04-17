@@ -1,7 +1,9 @@
 .home-container {
-  width: 1200px;
+  max-width: 1200px;
   margin: auto;
+  padding: 1rem;
 }
+
 .home-workspace {
   align-items: center;
   color: #5e6c84;

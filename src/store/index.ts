@@ -1,159 +1,16 @@
-import { makeAutoObservable, toJS } from 'mobx';
-import { Board, Item, ListInterface } from '../interfaces';
+import { makeAutoObservable } from 'mobx';
+import { Board } from '../interfaces';
+import { initialState } from '../utils/data';
+import {
+  findCard,
+  _moveListOrBoard,
+  findList,
+  findBoard,
+} from '../utils/helperFunctions';
 const { v4: uuidv4 } = require('uuid');
 
-function findCard(id: string, items: Item[]) {
-  const item = items.filter((item: Item) => `${item.id}` === id)[0];
-  return {
-    item,
-    index: items.indexOf(item),
-  };
-}
-
-function findList(id: string, lists: ListInterface[]) {
-  const list = lists.filter((list: ListInterface) => `${list.id}` === id)[0];
-  return {
-    list,
-    index: lists.indexOf(list),
-  };
-}
-
-function _moveListOrBoard(
-  list: any,
-  sourceIndex: number,
-  destinationIndex: number
-) {
-  if (sourceIndex === destinationIndex) return false;
-  const tempLists = [...list];
-  if (destinationIndex === 0) {
-    const [itemToMove] = tempLists.splice(sourceIndex, 1);
-    tempLists.unshift(itemToMove);
-    return tempLists;
-  } else {
-    const [itemToMove] = tempLists.splice(sourceIndex, 1);
-    tempLists.splice(destinationIndex, 0, itemToMove);
-    return tempLists;
-  }
-}
 class Store {
-  boards: Board[] = [
-    {
-      name: 'Welcome Board',
-      id: uuidv4(),
-      lists: [
-        {
-          name: 'Basics',
-          id: uuidv4(),
-          items: [
-            {
-              id: uuidv4(),
-              description: 'Welcome to Trello!',
-              completed: false,
-              label: [{ name: 'welcome', color: 'blue' }],
-            },
-            {
-              id: uuidv4(),
-              description: 'This is a card!',
-              completed: false,
-              label: [
-                { name: 'welcome', color: 'blue' },
-                { name: 'card', color: 'green' },
-              ],
-            },
-            {
-              id: uuidv4(),
-              description: 'card 3 !',
-              completed: false,
-              label: [{ name: 'welcome', color: 'blue' }],
-            },
-            {
-              id: uuidv4(),
-              description: 'card 4 !',
-              completed: false,
-              label: [
-                { name: 'welcome', color: 'blue' },
-                { name: 'card', color: 'green' },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'intermediate',
-          id: uuidv4(),
-          items: [
-            {
-              id: uuidv4(),
-              description: 'Welcome to Trello!',
-              completed: false,
-              label: [{ name: 'welcome', color: 'blue' }],
-            },
-            {
-              id: uuidv4(),
-              description: 'This is a card!',
-              completed: false,
-              label: [
-                { name: 'welcome', color: 'blue' },
-                { name: 'card', color: 'green' },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Welcome Board2',
-      id: uuidv4(),
-      lists: [
-        {
-          name: 'Basics',
-          id: uuidv4(),
-          items: [
-            {
-              id: uuidv4(),
-              description: 'Welcome to Trello!',
-              completed: false,
-              label: [{ name: 'welcome', color: 'blue' }],
-            },
-            {
-              id: uuidv4(),
-              description: 'This is a card!',
-              completed: false,
-              label: [
-                { name: 'welcome', color: 'blue' },
-                { name: 'card', color: 'green' },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'intermediate',
-          id: uuidv4(),
-          items: [
-            {
-              id: uuidv4(),
-              description: 'Welcome to Trello!',
-              completed: false,
-              label: [{ name: 'welcome', color: 'blue' }],
-            },
-            {
-              id: uuidv4(),
-              description: 'This is a card!',
-              completed: false,
-              label: [
-                { name: 'welcome', color: 'blue' },
-                { name: 'card', color: 'green' },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Welcome Board3',
-      id: uuidv4(),
-      lists: [],
-    },
-  ];
+  boards: Board[] = initialState;
   constructor() {
     makeAutoObservable(this);
   }
@@ -185,25 +42,19 @@ class Store {
     this.boards = tempBoards;
   }
 
-  // moveItemById(
-  //   boardIndex: number,
-  //   listIndex: number,
-  //   sourceIndex: number,
-  //   destinationIndex: number
-  // ) {
-  //   console.log('sourceIndex', sourceIndex);
-  //   console.log('destinationIndex', destinationIndex);
-  //   if (
-  //     sourceIndex === destinationIndex ||
-  //     typeof destinationIndex !== 'number'
-  //   )
-  //     return;
-  //   const tempItems = [...this.boards[boardIndex].lists[listIndex].items];
-  //   const [itemToMove] = tempItems.splice(sourceIndex, 1);
-  //   tempItems.splice(destinationIndex, 0, itemToMove);
-  //   this.boards[boardIndex].lists[listIndex].items = tempItems;
-  //   console.log(toJS(this.boards[boardIndex].lists[listIndex].items));
-  // }
+  moveBoardById(boardId: string, destinationIndex: number) {
+    const { board: sourceList, index: sourceIndex } = findBoard(
+      boardId,
+      this.boards
+    );
+    if (sourceIndex === -1) return;
+    if (sourceIndex === destinationIndex) return;
+    const tempBoards = [...this.boards];
+    tempBoards.splice(sourceIndex, 1);
+    tempBoards.splice(destinationIndex, 0, sourceList);
+    this.boards = tempBoards;
+  }
+
   moveItem(
     boardIndex: number,
     listIndex: number,
@@ -244,16 +95,11 @@ class Store {
     destTempItems.splice(destinationIndex, 0, item);
     this.boards[boardIndex].lists[sourceListIndex].items = sourceTempItems;
     this.boards[boardIndex].lists[destinationListIndex].items = destTempItems;
-    // console.log(toJS(this.boards[boardIndex].lists[listIndex].items));
   }
 
   moveList(boardIndex: number, sourceIndex: number, destinationIndex: number) {
     console.log({ sourceIndex, destinationIndex });
     if (sourceIndex === destinationIndex) return;
-    // const tempLists = [...this.boards[boardIndex].lists];
-    // const [itemToMove] = tempLists.splice(sourceIndex, 1);
-    // tempLists.splice(destinationIndex, 0, itemToMove);
-    // this.boards[boardIndex].lists = tempLists;
     const tempLists = _moveListOrBoard(
       [...this.boards[boardIndex].lists],
       sourceIndex,
@@ -278,7 +124,6 @@ class Store {
     tempLists.splice(sourceListIndex, 1);
     tempLists.splice(destinationIndex, 0, sourceList);
     this.boards[boardIndex].lists = tempLists;
-    console.log('templist', toJS(this.boards[boardIndex].lists));
   }
 }
 
