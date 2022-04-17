@@ -10,6 +10,14 @@ function findCard(id: string, items: Item[]) {
   };
 }
 
+function findList(id: string, lists: ListInterface[]) {
+  const list = lists.filter((list: ListInterface) => `${list.id}` === id)[0];
+  return {
+    list,
+    index: lists.indexOf(list),
+  };
+}
+
 function _moveListOrBoard(
   list: any,
   sourceIndex: number,
@@ -177,7 +185,7 @@ class Store {
     this.boards = tempBoards;
   }
 
-  // moveItem(
+  // moveItemById(
   //   boardIndex: number,
   //   listIndex: number,
   //   sourceIndex: number,
@@ -256,6 +264,21 @@ class Store {
     } else {
       return;
     }
+  }
+
+  moveListById(boardIndex: number, sourceId: string, destinationIndex: number) {
+    const { list: sourceList, index: sourceListIndex } = findList(
+      sourceId,
+      this.boards[boardIndex].lists
+    );
+    console.log({ sourceListIndex, destinationIndex });
+    if (sourceListIndex === -1) return;
+    if (sourceListIndex === destinationIndex) return;
+    const tempLists = [...this.boards[boardIndex].lists];
+    tempLists.splice(sourceListIndex, 1);
+    tempLists.splice(destinationIndex, 0, sourceList);
+    this.boards[boardIndex].lists = tempLists;
+    console.log('templist', toJS(this.boards[boardIndex].lists));
   }
 }
 

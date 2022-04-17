@@ -62,6 +62,7 @@ const CardComponent: FC<Props> = ({ item, index, boardIndex, listIndex }) => {
 
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
+
   return (
     <div
       key={item.id}

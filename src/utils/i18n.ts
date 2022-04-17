@@ -13,6 +13,9 @@ const resources = {
       "Type board's name": "Type board's name",
       OK: 'OK',
       Cancel: 'Cancel',
+      ' + add List': ' + add List',
+      ' + add Card': ' + add Card',
+      'Add List': 'Add List',
     },
   },
   fr: {
@@ -23,6 +26,9 @@ const resources = {
       "Type board's name": 'Tapez le nom du tableau',
       OK: "D'ACCORD",
       Cancel: 'Annuler',
+      ' + add List': ' + ajouter une liste',
+      ' + add Card': ' + ajouter une carte',
+      'Add List': 'Ajouter la liste',
     },
   },
 };

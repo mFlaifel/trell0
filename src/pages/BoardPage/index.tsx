@@ -1,9 +1,11 @@
 import './index.css';
 import { useParams } from 'react-router-dom';
 import { store } from '../../store';
-import { AddItem } from '../../components/AddItem';
+import AddItem from '../../components/AddItem';
 import { observer } from 'mobx-react';
 import ListComponent from '../../components/List';
+import { t } from 'i18next';
+import { withTranslation } from 'react-i18next';
 
 const BoardPage = () => {
   let boardIndex = parseInt(useParams().boardIndex || '-1');
@@ -22,10 +24,10 @@ const BoardPage = () => {
             />
           ))
         ) : (
-          <div>no lists for this board</div>
+          <div>{t('no lists for this board')}</div>
         )}
         <AddItem
-          text=' + add List'
+          text={t(' + add List')}
           onAdd={(value: string) => {
             store.addList(boardIndex, value);
           }}
@@ -34,4 +36,4 @@ const BoardPage = () => {
     </div>
   );
 };
-export default observer(BoardPage);
+export default withTranslation()(observer(BoardPage));

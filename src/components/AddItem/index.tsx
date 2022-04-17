@@ -1,6 +1,8 @@
 import Button from 'antd/es/button';
 import Input from 'antd/es/input';
+import { t } from 'i18next';
 import { SetStateAction, useState } from 'react';
+import { withTranslation } from 'react-i18next';
 import './index.css';
 
 interface Props {
@@ -8,7 +10,7 @@ interface Props {
   onAdd: any;
 }
 
-export const AddItem: React.FC<Props> = ({ text, onAdd }) => {
+const AddItem: React.FC<Props> = ({ text, onAdd }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [value, setValue] = useState('');
 
@@ -39,15 +41,17 @@ export const AddItem: React.FC<Props> = ({ text, onAdd }) => {
             }
           />
           <Button type='primary' onClick={handleAddList}>
-            Add List
+            {t('Add List')}
           </Button>
           <Button type='primary' onClick={handleCancel}>
-            cancel
+            {t('Cancel')}
           </Button>
         </div>
       ) : (
-        <p>{text}</p>
+        <p>{t(text)}</p>
       )}
     </div>
   );
 };
+
+export default withTranslation()(AddItem);
